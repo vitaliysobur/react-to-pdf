@@ -60,7 +60,7 @@ const options = {
     format: [4,2]
 };
 <div>
-    <ReactToPdf targetRef={ref} filename="div-blue.pdf" options={options} x={.5} y={.5}>
+    <ReactToPdf targetRef={ref} filename="div-blue.pdf" options={options} x={.5} y={.5} isFullWidth={true}>
         {({toPdf}) => (
             <button onClick={toPdf}>Generate pdf</button>
         )}
@@ -77,5 +77,6 @@ const options = {
 |targetRef        | `RefObject`       |                   | [React ref](https://reactjs.org/docs/refs-and-the-dom.html) for the target component (use this or inner target reference)
 |x                | `number`          |         0         | X position in document
 |y                | `number`          |         0         | Y position in document
+|isFullWidth      | `bollean`         |         false     | defines whether the document should be full width (and height)
 |options          | `object`          |    `undefined`    | options for the jsPdf document - [view more details](https://rawgit.com/MrRio/jsPDF/master/docs/)
 |onComplete       | `function`        |    `undefined`    | callback executed when process is finished
