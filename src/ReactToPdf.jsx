@@ -11,7 +11,7 @@ class ReactToPdf extends PureComponent {
   }
 
   toPdf() {
-    const { targetRef, filename, x, y, options, onComplete } = this.props;
+    const { targetRef, filename, x, y, isFullWidth, options, onComplete } = this.props;
     const source = targetRef || this.targetRef;
     const targetComponent = source.current || source;
     if (!targetComponent) {
@@ -22,7 +22,9 @@ class ReactToPdf extends PureComponent {
     html2canvas(targetComponent, { logging: false }).then(canvas => {
       const imgData = canvas.toDataURL('image/png');
       const pdf = new JsPdf(options);
-      pdf.addImage(imgData, 'JPEG', x, y);
+      const width = isFullWidth && pdf.internal.pageSize.getWidth();
+      const height = isFullWidth && pdf.internal.pageSize.getHeight();
+      pdf.addImage(imgData, 'JPEG', x, y, width, height);
       pdf.save(filename);
       if (onComplete) onComplete();
     });
@@ -38,6 +40,7 @@ ReactToPdf.propTypes = {
   filename: PropTypes.string.isRequired,
   x: PropTypes.number,
   y: PropTypes.number,
+  isFullWidth: PropTypes.bool,
   options: PropTypes.object,
   children: PropTypes.func.isRequired,
   onComplete: PropTypes.func,
@@ -51,6 +54,7 @@ ReactToPdf.defaultProps = {
   filename: 'download.pdf',
   x: 0,
   y: 0,
+  isFullWidth: false,
   onComplete: undefined,
   targetRef: undefined
 };
