@@ -56,7 +56,8 @@ ReactToPdf.defaultProps = {
   y: 0,
   isFullWidth: false,
   onComplete: undefined,
-  targetRef: undefined
+  targetRef: undefined,
+  options: {}
 };
 
 export default ReactToPdf;
